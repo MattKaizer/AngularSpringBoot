@@ -1,0 +1,10 @@
+export class Cliente {
+         constructor(
+           public id: number,
+           public nombre: string,
+           public apellido: string,
+           public email: string,
+           public createdAt: string,
+           public deletedAt: string
+         ) {}
+       }
