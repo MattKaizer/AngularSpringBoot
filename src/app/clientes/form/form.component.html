@@ -1,0 +1,43 @@
+<ul class="alert alert-danger" role="alert" *ngIf='errores?.length>0' >
+  <li *ngFor='let err of errores'>{{err}}</li>
+</ul>
+<div class="card border-primary mb-3">
+  <div class="card-header">
+    {{titulo}}
+  </div>
+  <div class="card-body text-primary">
+    <div class="card-title">Añade Cliente Nuevo</div>
+    <form #clienteForm="ngForm">
+      <div class="form-group">
+        <input id="nombre" #nombre="ngModel" name="nombre" placeholder="nombre" type="text" class="form-control" [(ngModel)]="cliente.nombre" >
+        <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+          <div *ngIf="nombre.errors.required" >El nombre es requerido</div>
+          <div *ngIf="nombre.errors.minlength">Debe tener al menos 5 caracteres</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <input id="apellido" #apellido="ngModel" name="apellido" placeholder="apellido" type="text" class="form-control" [(ngModel)]="cliente.apellido" >
+          <div class="alert alert-danger" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+            <div *ngIf="apellido.errors.required">El apellido es requerido</div>
+          </div>
+      </div>
+      <div class="form-group">
+        <input id="creatAt" [(ngModel)]="cliente.createdAt" name="creatAt" placeholder="fecha" type="date" class="form-control">
+      </div>
+      <div class="form-group">
+        <input id="email" #email="ngModel" name="email" placeholder="email" type="text" class="form-control" [(ngModel)]="cliente.email"  >
+          <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+            <div *ngIf="email.errors.required">El email es requerido</div>
+            <div *ngIf="email.errors.email">Debe tener un formato válido</div>
+          </div>
+      </div>
+      <div class="form-group">
+        <button name="submit" type="submit" class="btn btn-primary" role="button" (click)="create()" *ngIf="!cliente.id else elseBlock" [disabled]="!clienteForm.form.valid">Crear</button>
+        <ng-template #elseBlock>
+          <button class="btn btn-primary" role="button" (click)="update()" [disabled]="!clienteForm.form.valid">Editar</button>
+        </ng-template>
+
+      </div>
+    </form>
+  </div>
+</div>
