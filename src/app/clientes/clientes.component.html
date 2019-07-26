@@ -2,29 +2,40 @@
   <div class="card-header">
     Clientes
   </div>
-  <div class="card-body text-primary">
+  <div class="card-body table-responsive-sm text-primary">
     <div class="card-title">Listado de Clientes</div>
-    <table class="table table-bordered table-striped">
-        <thead>
+    <div class="my-2 text-left">
+      <button type="button" Class="btn-primary btn btn-rounded"
+      [routerLink]="['/clientes/form']">Crear Cliente</button>
+    </div>
+    <div class="alert alert-info" *ngIf="listaClientes?.length == 0 ">
+      No hay registros en la base de datos!
+    </div>
+    <table class="table table-bordered table-striped" *ngIf="listaClientes?.length>0" >
+        <thead class="text-center">
           <tr>
             <th>ID</th>
             <th>NOMBRE</th>
             <th>APELLIDO</th>
             <th>EMAIL</th>
             <th>FECHA INICIO</th>
-            <th>FECHA FIN</th>
+            <th>ACCIONES</th>
           </tr>
         </thead>
         <tbody>
         <tr *ngFor="let cliente of listaClientes" >
           <td>{{cliente.id}}</td>
           <td>{{cliente.nombre}}</td>
-          <td>{{cliente.apellido}}</td>
+          <td>{{cliente.apellido}}</td><!-- | uppercase-->
           <td>{{cliente.email}}</td>
-          <td>{{cliente.createdAt}}</td>
-          <td>{{cliente.deletedAt}}</td>
+          <td>{{cliente.createdAt}}</td><!-- | date: "EE dd, MMMM yyyy" import LOCALE_ID on appmodule-->
+          <td class="text-center">
+            <button type="button" name="edit" class="btn-secondary btn btn-rounded" [routerLink]="['/clientes/form', cliente.id]"><i class="far fa-edit"></i></button>
+            <button type="button" name="delete" (click)='delete(cliente)' class="btn-danger btn btn-rounded ml-2"><i class="fas fa-trash"></i></button>
+          </td>
         </tr>
       </tbody>
     </table>
+    <app-paginator *ngIf="paginator" [paginatorChild] = "paginator"></app-paginator>
   </div>
 </div>
