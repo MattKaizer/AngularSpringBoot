@@ -1,0 +1,14 @@
+<nav aria-label="...">
+  <ul class="pagination" *ngIf="paginas?.length>0" >
+    <li class="page-item" [ngClass]="paginatorChild.number == 0 ? 'disabled' : ''">
+      <a class="page-link" [routerLink]="['/clientes/page', paginatorChild.number-1]">Previous</a>
+    </li>
+    <li *ngFor="let pagina of paginas" class="page-item" [ngClass]="pagina-1 == paginatorChild.number ? 'active' : ''" >
+      <span class="page-link" *ngIf="pagina-1 == paginatorChild.number">{{pagina}}</span>
+      <a class="page-link" *ngIf="pagina-1 != paginatorChild.number" [routerLink]="['/clientes/page', pagina-1]">{{pagina}}</a>
+    </li>
+    <li class="page-item" [ngClass]="paginatorChild.number == paginatorChild.totalPages-1 ? 'disabled' : ''" >
+      <a class="page-link" [routerLink]="['/clientes/page', paginatorChild.number+1]">Next</a>
+    </li>
+  </ul>
+</nav>
